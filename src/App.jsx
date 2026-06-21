@@ -17,7 +17,17 @@ function App() {
     return !currentWord.includes(letter);
   })
   const wrongGuessCount = wrongGuessArr.length;
- 
+
+  //Win Game Logic: We're checking if all the letters in currentWord are in the guessedLetters array
+    let found = 0;  
+  currentWord.split('').map((letter)=>{
+    guessedLetters.includes(letter)? found++ : null;
+  })
+
+  let isGameWon  = found === currentWord.length;
+  console.log(isGameWon);
+  const isGameLost = !isGameWon;
+
 
   //display the letters in currentWord that have been guessed ie exist in the guessedLetters Array
   const guessingLetters = currentWord.split("").map((item, index) => {
@@ -36,7 +46,6 @@ function App() {
       correct:isCorrect,
       wrong:isWrong
     })
-
 
      return <button
         onClick={() => {
@@ -57,12 +66,7 @@ function handleGuess(item) {
 // console.log(guessedLetters);
 //Display the various languages
 const languageArr = languages.map((item, index) => {
-
-if(index + 1 <= wrongGuessCount) 
-  return <Language props={item} key={index} className = {"lost"} />
-else {
-  return <Language props={item} key={index} />
-}
+  return <Language props={item} index = {index} wrongGuessCount = {wrongGuessCount} key={index}/>
 
 }
   );
@@ -76,6 +80,8 @@ return (
     <div className="languages">{languageArr}</div>
     <div className="letter-guesses">{guessingLetters}</div>
     <div className="keyboard">{alphabetArr}</div>
+
+    {isGameLost ? null: <button className="newgame"> New Game </button>}
   </>
 );
 }
