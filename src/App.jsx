@@ -5,8 +5,6 @@ import Language from "./Components/Language";
 import { useState } from "react";
 import clsx from "clsx";
 function App() {
-  
-
   const [currentWord, setCurrentWord] = useState("react");
   const [guessedLetters, setGuessedLetters] = useState([]);
 
